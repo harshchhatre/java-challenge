@@ -1,13 +1,13 @@
-package com.example.rqchallenge;
+package com.example.challenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RqChallengeApplication {
+public class EmployeeChallengeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RqChallengeApplication.class, args);
+        SpringApplication.run(EmployeeChallengeApplication.class, args);
     }
 
 }

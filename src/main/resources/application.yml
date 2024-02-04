@@ -1,0 +1,4 @@
+api:
+  employee:
+    base-url: https://dummy.restapiexample.com/api/v1/
+    resource : employee/

@@ -1,4 +1,7 @@
 api:
   employee:
     base-url: https://dummy.restapiexample.com/api/v1/
-    resource : employee/
+    create: create
+    delete: delete
+    searchById: employee/
+    getAll: employees

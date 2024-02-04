@@ -10,6 +10,15 @@ public class ApiConfig {
     @Value("${api.employee.base-url}")
     private String employeeBaseUrl;
 
-    @Value("${api.employee.resource}")
-    private String employeeResource;
+    @Value("${api.employee.create}")
+    private String createEmployee;
+
+    @Value("${api.employee.delete}")
+    private String deleteEmployee;
+
+    @Value("${api.employee.getAll}")
+    private String allEmployees;
+
+    @Value("${api.employee.searchById}")
+    private String byEmployeeId;
 }

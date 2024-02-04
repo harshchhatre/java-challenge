@@ -6,7 +6,8 @@ import com.example.challenge.dto.GetAllEmployeeResponse;
 import com.example.challenge.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import reactor.core.publisher.Flux;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 //@RestController
+@RestController
+@RequestMapping("/employees")
 @Slf4j
 public class EmployeeControllerImpl implements IEmployeeController {
 

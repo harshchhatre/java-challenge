@@ -4,7 +4,6 @@ import com.example.challenge.dto.CreateEmployeeResponse;
 import com.example.challenge.dto.EmployeeResponse;
 import com.example.challenge.dto.GetAllEmployeeResponse;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/employees")
 public interface IEmployeeController {
 
     @GetMapping()

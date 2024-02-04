@@ -2,8 +2,8 @@ package com.example.challenge.service;
 
 import com.example.challenge.configuration.ApiConfig;
 import com.example.challenge.dto.CreateEmployeeResponse;
-import com.example.challenge.dto.EmployeeResponse;
 import com.example.challenge.dto.EmployeeRequest;
+import com.example.challenge.dto.EmployeeResponse;
 import com.example.challenge.dto.GetAllEmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,18 +20,23 @@ public class RestEmployeeProvider {
 
 
     public Mono<GetAllEmployeeResponse> getAllEmployees() {
-        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getEmployeeResource(), GetAllEmployeeResponse.class);
+        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getAllEmployees(), GetAllEmployeeResponse.class)
+                .switchIfEmpty(Mono.error(new RuntimeException("------")));
     }
 
     public Mono<EmployeeResponse> getEmployeeById(String id) {
-        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getEmployeeResource(), EmployeeResponse.class);
+        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getByEmployeeId(), EmployeeResponse.class);
     }
 
     public Mono<CreateEmployeeResponse> createEmployee(EmployeeRequest employeeRequest) {
-        return webClient.postMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getEmployeeResource(), employeeRequest, CreateEmployeeResponse.class);
+        try {
+            return webClient.postMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getCreateEmployee(), employeeRequest, CreateEmployeeResponse.class);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public Mono<EmployeeResponse> deleteEmployee(String id) {
-        return webClient.deleteMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getEmployeeResource(), EmployeeResponse.class);
+        return webClient.deleteMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getDeleteEmployee(), EmployeeResponse.class);
     }
 }

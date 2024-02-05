@@ -16,14 +16,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'javax.inject:javax.inject:1'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    implementation 'org.springframework:spring-mock:2.0.8'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+    testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver'
 
-    implementation 'io.netty:netty-resolver-dns-native-macos'
+    testImplementation 'io.netty:netty-resolver-dns-native-macos' // required to run for macs with m2 chips
 }
 
 test {

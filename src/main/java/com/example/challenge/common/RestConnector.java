@@ -1,7 +1,6 @@
 package com.example.challenge.common;
 
 import com.example.challenge.exceptions.RestClientException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
 
     private static final String MSG_FAILED_COMMUNICATION_WITH_API_PROVIDER = "Failed to communicate to API Provider";
-    private final ObjectMapper mapper = new ObjectMapper();
     private final RestTemplate restTemplate = new RestTemplate();
 
     public <S, T> ResponseEntity<T> post(String url, S input, Class<T> clasz) {
@@ -27,7 +25,6 @@ public class RestConnector {
         } catch (Exception ex) {
             log.error("API POST :: Exception with Request {} with exception  {} ", input, ex.getMessage(), ex);
             throw new RestClientException(MSG_FAILED_COMMUNICATION_WITH_API_PROVIDER);
-
         }
     }
 

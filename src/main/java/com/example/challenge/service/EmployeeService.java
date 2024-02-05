@@ -1,7 +1,9 @@
 package com.example.challenge.service;
 
-import com.example.challenge.dto.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.challenge.dto.CreateEmployeeResponse;
+import com.example.challenge.dto.Employee;
+import com.example.challenge.dto.GetAllEmployeeResponse;
+import com.example.challenge.dto.GetEmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Autowired
     private RestEmployeeProvider employeeProvider;
 
@@ -54,11 +52,10 @@ public class EmployeeService {
     }
 
     public CreateEmployeeResponse createEmployee(Map<String, Object> employeeInput) {
-        CreateEmployeeRequest createEmployeeRequest = objectMapper.convertValue(employeeInput, CreateEmployeeRequest.class);
-        return employeeProvider.createEmployee(createEmployeeRequest);
+        return employeeProvider.createEmployee(employeeInput);
     }
 
-    public String deleteEmployee(String id) {
+    public String deleteEmployeeById(String id) {
         GetEmployeeResponse getEmployeeResponse = getEmployeeById(id);
         employeeProvider.deleteEmployee(id);
         return getEmployeeResponse.getData().getName();

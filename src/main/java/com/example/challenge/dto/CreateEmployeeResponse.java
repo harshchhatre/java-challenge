@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class CreateEmployeeResponse {
     private String status;
-    private Employee data;
+    private CreateEmployeeRequest data;
     private String message;
 }

@@ -2,13 +2,14 @@ package com.example.challenge.service;
 
 import com.example.challenge.common.RestConnector;
 import com.example.challenge.configuration.ApiConfig;
-import com.example.challenge.dto.CreateEmployeeRequest;
 import com.example.challenge.dto.CreateEmployeeResponse;
 import com.example.challenge.dto.GetAllEmployeeResponse;
 import com.example.challenge.dto.GetEmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class RestEmployeeProvider {
@@ -31,7 +32,7 @@ public class RestEmployeeProvider {
         return restConnector.get(url, GetEmployeeResponse.class).getBody();
     }
 
-    public CreateEmployeeResponse createEmployee(CreateEmployeeRequest createEmployeeRequest) {
+    public CreateEmployeeResponse createEmployee(Map<String, Object> createEmployeeRequest) {
         String url = apiConfig.getEmployeeBaseUrl() + apiConfig.getCreateEmployeePath();
         return restConnector.post(url, createEmployeeRequest, CreateEmployeeResponse.class).getBody();
     }

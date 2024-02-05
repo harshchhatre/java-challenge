@@ -31,12 +31,8 @@ public class ReactiveWebClient {
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(clasz)
-                .doOnError(err -> {
-                    log.error("ReactiveWebClient() :: Exception in post for url {}, Body {}, Exception - {}", url, body, err);
-                })
-                .doOnSuccess(resp -> {
-                    log.info("ReactiveWebClient() :: POST :: Received successful response {} from url {} for body {}", resp, url, body);
-                });
+                .doOnError(err -> log.error("ReactiveWebClient() :: Exception in post for url {}, Body {}, Exception - {}", url, body, err))
+                .doOnSuccess(resp -> log.info("ReactiveWebClient() :: POST :: Received successful response {} from url {} for body {}", resp, url, body));
     }
 
     public <S> Mono<S> getMono(String url, Class<S> clasz) {
@@ -45,12 +41,8 @@ public class ReactiveWebClient {
                 .retrieve()
                 .onStatus(httpStatus -> httpStatus != HttpStatus.OK, error -> Mono.error(new RestClientException("error Body")))
                 .bodyToMono(clasz)
-                .doOnError(err -> {
-                    log.error("ReactiveWebClient() :: Exception in get for url {}, Exception - {}", url, err);
-                })
-                .doOnSuccess(resp -> {
-                    log.info("ReactiveWebClient() :: GET :: Received successful response {} from url {}", resp, url);
-                });
+                .doOnError(err -> log.error("ReactiveWebClient() :: Exception in get for url {}, Exception - {}", url, err))
+                .doOnSuccess(resp -> log.info("ReactiveWebClient() :: GET :: Received successful response {} from url {}", resp, url));
     }
 
     public <S> Mono<S> deleteMono(String url, Class<S> clasz) {
@@ -58,11 +50,7 @@ public class ReactiveWebClient {
                 .uri(URI.create(url))
                 .retrieve()
                 .bodyToMono(clasz)
-                .doOnError(err -> {
-                    log.error("ReactiveWebClient() :: DELETE :: Exception in get for url {}, Exception - {}", url, err);
-                })
-                .doOnSuccess(resp -> {
-                    log.info("ReactiveWebClient() :: DELETE :: Received successful response {} from url {}", resp, url);
-                });
+                .doOnError(err -> log.error("ReactiveWebClient() :: DELETE :: Exception in get for url {}, Exception - {}", url, err))
+                .doOnSuccess(resp -> log.info("ReactiveWebClient() :: DELETE :: Received successful response {} from url {}", resp, url));
     }
 }

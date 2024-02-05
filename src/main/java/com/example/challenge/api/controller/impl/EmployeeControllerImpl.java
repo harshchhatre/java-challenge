@@ -60,6 +60,6 @@ public class EmployeeControllerImpl implements IEmployeeController {
     @Override
     public String deleteEmployeeById(String id) {
         log.debug("deleteEmployeeById() :: Request to delete an employee with id {}", id);
-        return employeeService.deleteEmployee(id);
+        return employeeService.deleteEmployeeById(id);
     }
 }

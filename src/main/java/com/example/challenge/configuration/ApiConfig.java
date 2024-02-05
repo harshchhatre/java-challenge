@@ -11,14 +11,14 @@ public class ApiConfig {
     private String employeeBaseUrl;
 
     @Value("${api.employee.create}")
-    private String createEmployee;
+    private String createEmployeePath;
 
     @Value("${api.employee.delete}")
-    private String deleteEmployee;
+    private String deleteEmployeePath;
 
     @Value("${api.employee.getAll}")
-    private String allEmployees;
+    private String allEmployeesPath;
 
     @Value("${api.employee.searchById}")
-    private String byEmployeeId;
+    private String byEmployeeIdPath;
 }

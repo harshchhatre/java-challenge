@@ -1,42 +1,43 @@
 package com.example.challenge.service;
 
+import com.example.challenge.common.RestConnector;
 import com.example.challenge.configuration.ApiConfig;
+import com.example.challenge.dto.CreateEmployeeRequest;
 import com.example.challenge.dto.CreateEmployeeResponse;
-import com.example.challenge.dto.EmployeeRequest;
-import com.example.challenge.dto.EmployeeResponse;
 import com.example.challenge.dto.GetAllEmployeeResponse;
+import com.example.challenge.dto.GetEmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 @Service
 public class RestEmployeeProvider {
 
     @Autowired
-    private ReactiveWebClient webClient;
+    private RestConnector restConnector;
 
     @Autowired
     private ApiConfig apiConfig;
 
 
-    public Mono<GetAllEmployeeResponse> getAllEmployees() {
-        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getAllEmployees(), GetAllEmployeeResponse.class)
-                .switchIfEmpty(Mono.error(new RuntimeException("------")));
+    public GetAllEmployeeResponse getAllEmployees() {
+        String url = apiConfig.getEmployeeBaseUrl() + apiConfig.getAllEmployeesPath();
+        ResponseEntity<GetAllEmployeeResponse> responseEntity = restConnector.get(url, GetAllEmployeeResponse.class);
+        return responseEntity.getBody();
     }
 
-    public Mono<EmployeeResponse> getEmployeeById(String id) {
-        return webClient.getMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getByEmployeeId(), EmployeeResponse.class);
+    public GetEmployeeResponse getEmployeeById(String id) {
+        String url = apiConfig.getEmployeeBaseUrl() + apiConfig.getByEmployeeIdPath() + id;
+        return restConnector.get(url, GetEmployeeResponse.class).getBody();
     }
 
-    public Mono<CreateEmployeeResponse> createEmployee(EmployeeRequest employeeRequest) {
-        try {
-            return webClient.postMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getCreateEmployee(), employeeRequest, CreateEmployeeResponse.class);
-        } catch (Exception e) {
-            throw e;
-        }
+    public CreateEmployeeResponse createEmployee(CreateEmployeeRequest createEmployeeRequest) {
+        String url = apiConfig.getEmployeeBaseUrl() + apiConfig.getCreateEmployeePath();
+        return restConnector.post(url, createEmployeeRequest, CreateEmployeeResponse.class).getBody();
     }
 
-    public Mono<EmployeeResponse> deleteEmployee(String id) {
-        return webClient.deleteMono(apiConfig.getEmployeeBaseUrl() + apiConfig.getDeleteEmployee(), EmployeeResponse.class);
+    public GetEmployeeResponse deleteEmployee(String id) {
+        String url = apiConfig.getEmployeeBaseUrl() + apiConfig.getDeleteEmployeePath() + id;
+        return restConnector.delete(url, GetEmployeeResponse.class).getBody();
     }
 }

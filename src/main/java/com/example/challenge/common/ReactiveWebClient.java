@@ -1,10 +1,10 @@
-package com.example.challenge.service;
+package com.example.challenge.common;
 
-import com.example.challenge.exceptions.APIException;
+import com.example.challenge.exceptions.RestClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -12,7 +12,7 @@ import reactor.netty.http.client.HttpClient;
 
 import java.net.URI;
 
-@Service
+@Component
 @Slf4j
 public class ReactiveWebClient {
 
@@ -33,7 +33,6 @@ public class ReactiveWebClient {
                 .bodyToMono(clasz)
                 .doOnError(err -> {
                     log.error("ReactiveWebClient() :: Exception in post for url {}, Body {}, Exception - {}", url, body, err);
-//                    throw new APIException(err);
                 })
                 .doOnSuccess(resp -> {
                     log.info("ReactiveWebClient() :: POST :: Received successful response {} from url {} for body {}", resp, url, body);
@@ -44,7 +43,7 @@ public class ReactiveWebClient {
         return webClient.get()
                 .uri(URI.create(url))
                 .retrieve()
-                .onStatus(httpStatus -> httpStatus != HttpStatus.OK, error -> Mono.error(new APIException("error Body")))
+                .onStatus(httpStatus -> httpStatus != HttpStatus.OK, error -> Mono.error(new RestClientException("error Body")))
                 .bodyToMono(clasz)
                 .doOnError(err -> {
                     log.error("ReactiveWebClient() :: Exception in get for url {}, Exception - {}", url, err);

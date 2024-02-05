@@ -3,20 +3,13 @@ package com.example.challenge.service;
 import com.example.challenge.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-    @Autowired
-    private ConversionService conversionService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -24,53 +17,50 @@ public class EmployeeService {
     @Autowired
     private RestEmployeeProvider employeeProvider;
 
-    public Mono<GetAllEmployeeResponse> getAllEmployees() {
+    public GetAllEmployeeResponse getAllEmployees() {
         return employeeProvider.getAllEmployees();
     }
 
-    public Mono<GetAllEmployeeResponse> getEmployeesByName(String searchString) {
-        return employeeProvider.getAllEmployees().map(employeeResponse -> {
-                    List<Employee> result = employeeResponse.getData().stream()
-                            .map(e -> conversionService.convert(e, Employee.class))
-                            .filter(employee -> employee.getName().toLowerCase().contains(searchString))
-                            .collect(Collectors.toList());
-                    employeeResponse.setData(result);
-                    return employeeResponse;
-                })
-                .switchIfEmpty(Mono.empty());
+    public GetAllEmployeeResponse getEmployeesByName(String searchString) {
+        GetAllEmployeeResponse getAllEmployeeResponse = employeeProvider.getAllEmployees();
+        List<Employee> result = getAllEmployeeResponse.getData().stream()
+                .filter(Objects::nonNull)
+                .filter(employee -> employee.getName().toLowerCase().contains(searchString.toLowerCase()))
+                .collect(Collectors.toList());
+        getAllEmployeeResponse.setData(result);
+        return getAllEmployeeResponse;
+
     }
 
-    public Mono<EmployeeResponse> getEmployeeById(String empId) {
+    public GetEmployeeResponse getEmployeeById(String empId) {
         return employeeProvider.getEmployeeById(empId);
     }
 
-    public Mono<Integer> getHighestSalary() {
-        return employeeProvider.getAllEmployees().map(employeeResponse -> {
-                    Optional<Employee> employeeWithHighestSalary = employeeResponse.getData().stream()
-                            .sorted(Comparator.comparingInt(Employee::getSalary).reversed())
-                            .collect(Collectors.toList()).stream().findFirst();
-                    return employeeWithHighestSalary.map(Employee::getSalary).orElse(null);
-                })
-                .switchIfEmpty(Mono.empty());
+    public Integer getHighestSalary() {
+        GetAllEmployeeResponse getAllEmployeeResponse = employeeProvider.getAllEmployees();
+        Optional<Employee> employeeWithHighestSalary = getAllEmployeeResponse.getData().stream()
+                .sorted(Comparator.comparingInt(Employee::getSalary).reversed())
+                .collect(Collectors.toList()).stream().findFirst();
+        return employeeWithHighestSalary.map(Employee::getSalary).orElse(null);
+
     }
 
-    public Mono<List<String>> getTenHighestEarningEmployeesNames() {
-        return employeeProvider.getAllEmployees().map(employeeResponse -> {
-            List<Employee> topTenHighestEarningEmployees = employeeResponse.getData().stream()
-                    .sorted(Comparator.comparingInt(Employee::getSalary).reversed()).limit(10)
-                    .collect(Collectors.toList());
-            return topTenHighestEarningEmployees.stream().map(Employee::getName).collect(Collectors.toList());
-
-        });
+    public List<String> getTenHighestEarningEmployeesNames() {
+        GetAllEmployeeResponse getAllEmployeeResponse = employeeProvider.getAllEmployees();
+        List<Employee> topTenHighestEarningEmployees = getAllEmployeeResponse.getData().stream()
+                .sorted(Comparator.comparingInt(Employee::getSalary).reversed()).limit(10)
+                .collect(Collectors.toList());
+        return topTenHighestEarningEmployees.stream().map(Employee::getName).collect(Collectors.toList());
     }
 
-    public Mono<CreateEmployeeResponse> createEmployee(Map<String, Object> employeeInput) {
-        EmployeeRequest employeeRequest = objectMapper.convertValue(employeeInput, EmployeeRequest.class);
-        return employeeProvider.createEmployee(employeeRequest);
+    public CreateEmployeeResponse createEmployee(Map<String, Object> employeeInput) {
+        CreateEmployeeRequest createEmployeeRequest = objectMapper.convertValue(employeeInput, CreateEmployeeRequest.class);
+        return employeeProvider.createEmployee(createEmployeeRequest);
     }
 
-    public Mono<String> deleteEmployee(String id) {
-        return getEmployeeById(id).flatMap(employeeResponse -> employeeProvider.deleteEmployee(id)
-                .map(response -> employeeResponse.getData().getName())).switchIfEmpty(Mono.empty());
+    public String deleteEmployee(String id) {
+        GetEmployeeResponse getEmployeeResponse = getEmployeeById(id);
+        employeeProvider.deleteEmployee(id);
+        return getEmployeeResponse.getData().getName();
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +116,7 @@ class EmployeeControllerImplIntegrationTest {
         WebTestClient.bindToServer().baseUrl(baseUrl)
                 .build()
                 .get()
-                .uri("/2")
+                .uri("/20")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -150,17 +149,7 @@ class EmployeeControllerImplIntegrationTest {
 
     @Test
     void testWhenGetTopTenHighestEarningEmployeeNamesApiCalledThenShouldSuccess() throws JsonProcessingException {
-        List<String> mockEmployeeNames = new ArrayList<>();
-        mockEmployeeNames.add("Shane Warn");
-        mockEmployeeNames.add("Alex lehman");
-        mockEmployeeNames.add("Chad Devis");
-        mockEmployeeNames.add("Mahendrasingh Dhoni");
-        mockEmployeeNames.add("Margaret Wales");
-        mockEmployeeNames.add("Robert Downey");
-        mockEmployeeNames.add("Mark Wood");
-        mockEmployeeNames.add("James Thompson");
-        mockEmployeeNames.add("Sachin Tendulkar");
-        mockEmployeeNames.add("Enzo Ferrari");
+        List<String> mockEmployeeNames = DummyEmployeeFixtures.getDummyNames(10);
         ObjectMapper objectMapper = new ObjectMapper();
         mockBackEnd.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockEmployeeNames))

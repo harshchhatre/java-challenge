@@ -1,7 +1,7 @@
 api:
+  baseUrl: https://dummy.restapiexample.com/api/v1/
   employee:
-    base-url: https://dummy.restapiexample.com/api/v1/
-    create: create
-    delete: delete/
-    searchById: employee/
-    getAll: employees
+    getAllPath: employees
+    createPath: create
+    searchByIdPath: employee/
+    deletePath: delete/

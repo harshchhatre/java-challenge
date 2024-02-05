@@ -23,4 +23,10 @@ public final class DummyEmployeeFixtures {
                         faker.number().numberBetween(18, 60), "")));
         return employees;
     }
+
+    public static List<String> getDummyNames(int size) {
+        List<String> names = new ArrayList<>();
+        IntStream.range(0, size).forEach(count -> names.add(faker.name().fullName()));
+        return names;
+    }
 }

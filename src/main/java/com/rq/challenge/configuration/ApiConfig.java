@@ -7,18 +7,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Data
 public class ApiConfig {
-    @Value("${api.employee.base-url}")
+    @Value("${api.baseUrl}")
     private String employeeBaseUrl;
 
-    @Value("${api.employee.create}")
+    @Value("${api.employee.createPath}")
     private String createEmployeePath;
 
-    @Value("${api.employee.delete}")
+    @Value("${api.employee.deletePath}")
     private String deleteEmployeePath;
 
-    @Value("${api.employee.getAll}")
+    @Value("${api.employee.getAllPath}")
     private String allEmployeesPath;
 
-    @Value("${api.employee.searchById}")
+    @Value("${api.employee.searchByIdPath}")
     private String byEmployeeIdPath;
 }

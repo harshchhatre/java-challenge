@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.eq;
@@ -148,11 +147,7 @@ class EmployeeServiceTest {
 
     @Test
     void testTopTenHighestSalaryEmployees() {
-        List<Employee> employees = new ArrayList<>();
-        // generate employees with dummy data
-        IntStream.range(0, 15)
-                .forEach(count -> employees.add(
-                        new Employee(String.valueOf(count), "Name" + count, count * count, count + 10, "")));
+        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(15);
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
         mockedResponse.setData(employees);

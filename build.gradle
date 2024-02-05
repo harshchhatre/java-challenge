@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.example'
+group = 'com.rq.challange'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -21,6 +21,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
     testImplementation 'io.netty:netty-resolver-dns-native-macos' // required to run for macs with m2 chips
 }

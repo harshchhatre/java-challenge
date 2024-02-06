@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public final class DummyEmployeeFixtures {
+public final class EmployeeFixtures {
     private static final Faker faker = new Faker();
 
-    private DummyEmployeeFixtures() {
+    private EmployeeFixtures() {
 
     }
 

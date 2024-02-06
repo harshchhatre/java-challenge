@@ -2,7 +2,7 @@ package com.rq.challenge.api.controller.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rq.challenge.api.controller.EmployeeControllerImpl;
-import com.rq.challenge.data.DummyEmployeeFixtures;
+import com.rq.challenge.data.EmployeeFixtures;
 import com.rq.challenge.dto.*;
 import com.rq.challenge.service.EmployeeService;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class EmployeeControllerImplTest {
 
     @Test
     void getAllEmployees() throws Exception {
-        List<Employee> employeeList = DummyEmployeeFixtures.getMockEmployees(15);
+        List<Employee> employeeList = EmployeeFixtures.getMockEmployees(15);
         GetAllEmployeeResponse getAllEmployeeResponse = new GetAllEmployeeResponse();
         getAllEmployeeResponse.setData(employeeList);
 
@@ -51,7 +51,7 @@ class EmployeeControllerImplTest {
 
     @Test
     void getEmployeesByNameSearch() throws Exception {
-        List<Employee> employeeList = DummyEmployeeFixtures.getMockEmployees(15);
+        List<Employee> employeeList = EmployeeFixtures.getMockEmployees(15);
         GetAllEmployeeResponse getAllEmployeeResponse = new GetAllEmployeeResponse();
         getAllEmployeeResponse.setData(employeeList);
 

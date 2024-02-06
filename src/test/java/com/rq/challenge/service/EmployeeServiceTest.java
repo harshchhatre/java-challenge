@@ -2,7 +2,7 @@ package com.rq.challenge.service;
 
 import com.rq.challenge.common.RestConnector;
 import com.rq.challenge.configuration.ApiConfig;
-import com.rq.challenge.data.DummyEmployeeFixtures;
+import com.rq.challenge.data.EmployeeFixtures;
 import com.rq.challenge.dto.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ class EmployeeServiceTest {
     void testGetAllEmployees() {
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
-        mockedResponse.setData(DummyEmployeeFixtures.getMockEmployees(10));
+        mockedResponse.setData(EmployeeFixtures.getMockEmployees(10));
 
         Mockito.when(apiConfig.getAllEmployeesPath()).thenReturn(GET_ALL_PATH);
         Mockito.when(restConnector.get(BASE_URL + GET_ALL_PATH, GetAllEmployeeResponse.class))
@@ -79,7 +79,7 @@ class EmployeeServiceTest {
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
         Employee expected = new Employee("1", "Lorem Ipsum", 4737, 18, "");
-        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(10);
+        List<Employee> employees = EmployeeFixtures.getMockEmployees(10);
         employees.add(expected); // add expected employee object to completely random data for verification
         mockedResponse.setData(employees);
 
@@ -98,7 +98,7 @@ class EmployeeServiceTest {
     void testGetEmployeesByNameNoMatchFound() {
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
-        mockedResponse.setData(DummyEmployeeFixtures.getMockEmployees(20));
+        mockedResponse.setData(EmployeeFixtures.getMockEmployees(20));
 
         Mockito.when(apiConfig.getAllEmployeesPath()).thenReturn(GET_ALL_PATH);
         Mockito.when(restConnector.get(BASE_URL + GET_ALL_PATH, GetAllEmployeeResponse.class))
@@ -115,7 +115,7 @@ class EmployeeServiceTest {
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
         Employee expected = new Employee("1", "Lorem Ipsum", 900750, 18, "");
-        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(15);
+        List<Employee> employees = EmployeeFixtures.getMockEmployees(15);
         employees.add(expected); // add expected employee object to completely random data for verification
         mockedResponse.setData(employees);
 
@@ -147,7 +147,7 @@ class EmployeeServiceTest {
 
     @Test
     void testTopTenHighestSalaryEmployees() {
-        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(15);
+        List<Employee> employees = EmployeeFixtures.getMockEmployees(15);
         GetAllEmployeeResponse mockedResponse = new GetAllEmployeeResponse();
         mockedResponse.setStatus(STATUS_SUCCESS);
         mockedResponse.setData(employees);

@@ -1,6 +1,6 @@
 package com.rq.challenge.api.aspect;
 
-import com.rq.challenge.data.DummyEmployeeFixtures;
+import com.rq.challenge.data.EmployeeFixtures;
 import com.rq.challenge.dto.Employee;
 import com.rq.challenge.dto.GetAllEmployeeResponse;
 import com.rq.challenge.exceptions.RestClientException;
@@ -33,7 +33,7 @@ class RestClientExceptionHandlerTest {
 
     @Test
     void testRestClientExceptionHandler() throws Exception {
-        List<Employee> employeeList = DummyEmployeeFixtures.getMockEmployees(20);
+        List<Employee> employeeList = EmployeeFixtures.getMockEmployees(20);
         GetAllEmployeeResponse getAllEmployeeResponse = new GetAllEmployeeResponse();
         getAllEmployeeResponse.setData(employeeList);
 

@@ -2,7 +2,7 @@ package com.rq.challenge.api.controller.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rq.challenge.data.DummyEmployeeFixtures;
+import com.rq.challenge.data.EmployeeFixtures;
 import com.rq.challenge.dto.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -55,7 +55,7 @@ class EmployeeControllerImplIntegrationTest {
 
     @Test
     void testWhenGetAllEmployeesApiCalledThenShouldSuccess() throws JsonProcessingException {
-        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(10);
+        List<Employee> employees = EmployeeFixtures.getMockEmployees(10);
         GetAllEmployeeResponse mockGetAllEmployeeApiResponse = new GetAllEmployeeResponse();
         mockGetAllEmployeeApiResponse.setStatus(STATUS_SUCCESS);
         mockGetAllEmployeeApiResponse.setData(employees);
@@ -79,7 +79,7 @@ class EmployeeControllerImplIntegrationTest {
 
     @Test
     void testWhenGetEmployeesByNameSearchApiCalledThenShouldSuccess() throws JsonProcessingException {
-        List<Employee> employees = DummyEmployeeFixtures.getMockEmployees(10);
+        List<Employee> employees = EmployeeFixtures.getMockEmployees(10);
         GetAllEmployeeResponse mockGetAllEmployeeApiResponse = new GetAllEmployeeResponse();
         mockGetAllEmployeeApiResponse.setStatus(STATUS_SUCCESS);
         mockGetAllEmployeeApiResponse.setData(employees);
@@ -149,7 +149,7 @@ class EmployeeControllerImplIntegrationTest {
 
     @Test
     void testWhenGetTopTenHighestEarningEmployeeNamesApiCalledThenShouldSuccess() throws JsonProcessingException {
-        List<String> mockEmployeeNames = DummyEmployeeFixtures.getDummyNames(10);
+        List<String> mockEmployeeNames = EmployeeFixtures.getDummyNames(10);
         ObjectMapper objectMapper = new ObjectMapper();
         mockBackEnd.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockEmployeeNames))

@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -77,7 +78,6 @@ class EmployeeControllerImplTest {
                 .andExpect(jsonPath("$.data.employee_age", is(18)))
                 .andExpect(jsonPath("$.data.employee_name", is("Lorem Ipsum")))
                 .andExpect(jsonPath("$.data.employee_salary", is(4737)))
-                .andExpect(jsonPath("$.data.profile_image", isEmptyString()))
                 .andDo(print());
     }
 

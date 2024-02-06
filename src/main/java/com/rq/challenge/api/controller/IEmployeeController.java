@@ -6,7 +6,6 @@ import com.rq.challenge.dto.GetEmployeeResponse;
 import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ import java.util.Map;
 public interface IEmployeeController {
 
     @GetMapping()
-    GetAllEmployeeResponse getAllEmployees() throws IOException;
+    GetAllEmployeeResponse getAllEmployees();
 
     @GetMapping("/search/{searchString}")
     GetAllEmployeeResponse getEmployeesByNameSearch(@PathVariable @NonNull String searchString);

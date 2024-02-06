@@ -27,7 +27,6 @@ class EmployeeControllerImplIntegrationTest {
     private String baseUrl;
 
     private static final String STATUS_SUCCESS = "success";
-    private static final String STATUS_FAILURE = "failure";
     private static final String KEY_STATUS = "status";
     private static final String KEY_DATA = "data";
     private static final String KEY_MESSAGE = "message";
